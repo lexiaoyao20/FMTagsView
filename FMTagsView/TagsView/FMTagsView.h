@@ -8,16 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FMTagsViewDelegate;
+
 @interface FMTagsView : UIView
 
 @property (nonatomic) UIEdgeInsets contentInsets; //default is (10,10,10,10)
 
 @property (nonatomic) NSArray<NSString *> *tagsArray;   //数据源
+@property (weak, nonatomic) id<FMTagsViewDelegate> delegate;
+
+//行间距, 默认为10
+@property (nonatomic) CGFloat minimumLineSpacing;
+//元素之间的间距，默认为5
+@property (nonatomic) CGFloat minimumInteritemSpacing;
 
 #pragma mark - ......::::::: 标签定制属性 :::::::......
 
 @property (nonatomic) UIEdgeInsets tagInsets; // default is (5,5,5,5)
 @property (nonatomic) CGFloat tagBorderWidth;           //标签边框宽度, default is 0
+@property (nonatomic) CGFloat tagcornerRadius;  // default is 0
 @property (strong, nonatomic) UIColor *tagBorderColor;
 @property (strong, nonatomic) UIColor *tagSelectedBorderColor;
 @property (strong, nonatomic) UIColor *tagBackgroundColor;
@@ -28,6 +37,10 @@
 @property (strong, nonatomic) UIColor *tagSelectedTextColor;
 
 @property (nonatomic) CGFloat tagHeight;
+//tag 最小宽度值, 默认是0，即不作最小宽度限制
+@property (nonatomic) CGFloat mininumTagWidth;
+//tag 最大宽度值, 默认是CGFLOAT_MAX， 即不作最大宽度限制
+@property (nonatomic) CGFloat maximumTagWidth;
 
 #pragma mark - ......::::::: 选中 :::::::......
 
@@ -37,15 +50,19 @@
 @property (nonatomic, readonly) NSUInteger selectedIndex;   //选中索引
 @property (nonatomic, readonly) NSArray<NSString *> *selecedTags;     //多选状态下，选中的Tags
 
-- (void)selectTagAtIndex:(NSUInteger)index;
-- (void)deSelectTagAtIndex:(NSUInteger)index;
+- (void)selectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
+- (void)deSelectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
 
 @end
 
 
 @protocol FMTagsViewDelegate <NSObject>
 
+@optional
 - (BOOL)tagsView:(FMTagsView *)tagsView shouldSelectTagAtIndex:(NSUInteger)index;
 - (void)tagsView:(FMTagsView *)tagsView didSelectTagAtIndex:(NSUInteger)index;
+
+- (BOOL)tagsView:(FMTagsView *)tagsView shouldDeselectItemAtIndex:(NSUInteger)index;
+- (void)tagsView:(FMTagsView *)tagsView didDeSelectTagAtIndex:(NSUInteger)index;
 
 @end
