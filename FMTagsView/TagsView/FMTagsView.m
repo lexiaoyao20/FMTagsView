@@ -51,6 +51,8 @@ static NSString * const kTagCellID = @"TagCellID";
 @interface FMTagCell : UICollectionViewCell
 
 @property (strong, nonatomic) UILabel *tagLabel;
+@property (nonatomic) FMTagModel *tagModel;
+@property (nonatomic) UIEdgeInsets contentInsets;
 
 @end
 
@@ -66,7 +68,6 @@ static NSString * const kTagCellID = @"TagCellID";
         [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make){
             make.center.equalTo(self.contentView);
         }];
-
     }
     
     return self;
@@ -95,6 +96,30 @@ static NSString * const kTagCellID = @"TagCellID";
     return self;
 }
 
+- (CGFloat)minimumInteritemSpacingAtSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:)]) {
+        return [self.delegate collectionView:self.collectionView layout:self minimumInteritemSpacingForSectionAtIndex:section];
+    }
+    
+    return self.minimumInteritemSpacing;
+}
+
+- (CGFloat)minimumLineSpacingAtSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:)]) {
+        return [self.delegate collectionView:self.collectionView layout:self minimumLineSpacingForSectionAtIndex:section];
+    }
+    
+    return self.minimumLineSpacing;
+}
+
+- (UIEdgeInsets)sectionInsetAtSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
+        return [self.delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:section];
+    }
+    
+    return self.sectionInset;
+}
+
 #pragma mark - Methods to Override
 - (void)prepareLayout
 {
@@ -103,22 +128,28 @@ static NSString * const kTagCellID = @"TagCellID";
     NSInteger itemCount = [[self collectionView] numberOfItemsInSection:0];
     self.itemAttributes = [NSMutableArray arrayWithCapacity:itemCount];
     
-    CGFloat xOffset = self.sectionInset.left;
-    CGFloat yOffset = self.sectionInset.top;
-    CGFloat xNextOffset = self.sectionInset.left;
+    CGFloat minimumInteritemSpacing = [self minimumInteritemSpacingAtSection:0];
+    CGFloat minimumLineSpacing = [self minimumLineSpacingAtSection:0];
+    UIEdgeInsets sectionInset = [self sectionInsetAtSection:0];
+    
+    CGFloat xOffset = sectionInset.left;
+    CGFloat yOffset = sectionInset.top;
+    CGFloat xNextOffset = sectionInset.left;
+    
     for (NSInteger idx = 0; idx < itemCount; idx++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
         CGSize itemSize = [self.delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
+
+        xNextOffset += (minimumInteritemSpacing + itemSize.width);
         
-        xNextOffset+=(self.minimumInteritemSpacing + itemSize.width);
-        if (xNextOffset > [self collectionView].bounds.size.width - self.sectionInset.right) {
-            xOffset = self.sectionInset.left;
-            xNextOffset = (self.sectionInset.left + self.minimumInteritemSpacing + itemSize.width);
-            yOffset += (itemSize.height + self.minimumLineSpacing);
+        if (xNextOffset - minimumInteritemSpacing > [self collectionView].bounds.size.width - sectionInset.right) {
+            xOffset = sectionInset.left;
+            xNextOffset = (sectionInset.left + minimumInteritemSpacing + itemSize.width);
+            yOffset += (itemSize.height + minimumLineSpacing);
         }
         else
         {
-            xOffset = xNextOffset - (self.minimumInteritemSpacing + itemSize.width);
+            xOffset = xNextOffset - (minimumInteritemSpacing + itemSize.width);
         }
         
         UICollectionViewLayoutAttributes *layoutAttributes =
@@ -143,7 +174,7 @@ static NSString * const kTagCellID = @"TagCellID";
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
-    return YES;
+    return NO;
 }
 
 @end
@@ -196,12 +227,6 @@ static NSString * const kTagCellID = @"TagCellID";
     _allowsMultipleSelection = NO;
     
     [self addSubview:self.collectionView];
-    
-//    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make){
-//        make.edges.equalTo(self);
-//        make.height.equalTo(self);
-//    }];
-
 }
 
 - (void)layoutSubviews {
@@ -211,8 +236,7 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (CGSize)intrinsicContentSize {
-//    return self.collectionView.contentSize;
-    return CGSizeMake([UIScreen mainScreen].bounds.size.width, 100);
+    return self.collectionView.collectionViewLayout.collectionViewContentSize;
 }
 
 - (void)setTagsArray:(NSArray<NSString *> *)tagsArray {
@@ -245,10 +269,11 @@ static NSString * const kTagCellID = @"TagCellID";
     FMTagCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kTagCellID forIndexPath:indexPath];
     
     FMTagModel *tagModel = self.tagModels[indexPath.row];
+    cell.tagModel = tagModel;
     cell.tagLabel.text = tagModel.name;
     cell.layer.cornerRadius = self.tagcornerRadius;
     cell.layer.masksToBounds = self.tagcornerRadius > 0;
-    
+    cell.contentInsets = self.tagInsets;
     [self setCell:cell selected:tagModel.selected];
     
     return cell;
@@ -371,8 +396,8 @@ static NSString * const kTagCellID = @"TagCellID";
         _collectionView.delegate = self;
     }
     
-    _collectionView.allowsSelection = YES;
-//    _collectionView.allowsMultipleSelection = _allowsMultipleSelection;
+    _collectionView.allowsSelection = _allowsSelection;
+    _collectionView.allowsMultipleSelection = _allowsMultipleSelection;
     
     return _collectionView;
 }
