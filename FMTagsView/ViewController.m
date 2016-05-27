@@ -23,26 +23,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _scrollView = [UIScrollView new];
-    [self.view addSubview:_scrollView];
-    
-    _contentView = [UIView new];
-    [self.scrollView addSubview:_contentView];
-    
-    _tagsView = [[FMTagsView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 100)];
-    _tagsView.backgroundColor = [UIColor whiteColor];
-    _tagsView.delegate = self;
-    _tagsView.mininumTagWidth = 82;
-    _tagsView.tagcornerRadius = 8;
-    [self.contentView addSubview:_tagsView];
-    
-    [self setConstraints];
-    
-    NSArray * items = @[NSLocalizedString(@"近一日", nil),
-               NSLocalizedString(@"上周", nil),
-               NSLocalizedString(@"上月", nil),
-               NSLocalizedString(@"全部", nil)];
-    self.tagsView.tagsArray = items;
+//    _scrollView = [UIScrollView new];
+//    [self.view addSubview:_scrollView];
+//    
+//    _contentView = [UIView new];
+//    [self.scrollView addSubview:_contentView];
+//    
+//    _tagsView = [[FMTagsView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 100)];
+//    _tagsView.backgroundColor = [UIColor whiteColor];
+//    _tagsView.delegate = self;
+//    _tagsView.mininumTagWidth = 82;
+//    _tagsView.tagcornerRadius = 8;
+//    [self.contentView addSubview:_tagsView];
+//    
+//    [self setConstraints];
+//    
+//    NSArray * items = @[NSLocalizedString(@"近一日", nil),
+//               NSLocalizedString(@"上周", nil),
+//               NSLocalizedString(@"上月", nil),
+//               NSLocalizedString(@"全部", nil)];
+//    self.tagsView.tagsArray = items;
 }
 
 - (void)setConstraints {

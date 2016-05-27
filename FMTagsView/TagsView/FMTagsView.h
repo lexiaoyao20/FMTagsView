@@ -17,10 +17,8 @@
 @property (nonatomic) NSArray<NSString *> *tagsArray;   //数据源
 @property (weak, nonatomic) id<FMTagsViewDelegate> delegate;
 
-//行间距, 默认为10
-@property (nonatomic) CGFloat minimumLineSpacing;
-//元素之间的间距，默认为5
-@property (nonatomic) CGFloat minimumInteritemSpacing;
+@property (nonatomic) CGFloat minimumLineSpacing;       //行间距, 默认为10
+@property (nonatomic) CGFloat minimumInteritemSpacing; //元素之间的间距，默认为5
 
 #pragma mark - ......::::::: 标签定制属性 :::::::......
 
@@ -36,11 +34,9 @@
 @property (strong, nonatomic) UIColor *tagTextColor;
 @property (strong, nonatomic) UIColor *tagSelectedTextColor;
 
-@property (nonatomic) CGFloat tagHeight;
-//tag 最小宽度值, 默认是0，即不作最小宽度限制
-@property (nonatomic) CGFloat mininumTagWidth;
-//tag 最大宽度值, 默认是CGFLOAT_MAX， 即不作最大宽度限制
-@property (nonatomic) CGFloat maximumTagWidth;
+@property (nonatomic) CGFloat tagHeight;        //标签高度，默认28
+@property (nonatomic) CGFloat mininumTagWidth;  //tag 最小宽度值, 默认是0，即不作最小宽度限制
+@property (nonatomic) CGFloat maximumTagWidth;  //tag 最大宽度值, 默认是CGFLOAT_MAX， 即不作最大宽度限制
 
 #pragma mark - ......::::::: 选中 :::::::......
 

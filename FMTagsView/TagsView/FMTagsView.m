@@ -40,9 +40,11 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (void)calculateContentSize {
-    NSDictionary *attr = @{NSFontAttributeName : self.font};
+    NSDictionary *dict = @{NSFontAttributeName: self.font};
+    CGSize textSize = [_name boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 1000)
+                                          options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     
-    _contentSize = [self.name sizeWithAttributes:attr];
+    _contentSize = CGSizeMake(ceil(textSize.width), ceil(textSize.height));
 }
 
 @end
@@ -279,6 +281,7 @@ static NSString * const kTagCellID = @"TagCellID";
     cell.layer.cornerRadius = self.tagcornerRadius;
     cell.layer.masksToBounds = self.tagcornerRadius > 0;
     cell.contentInsets = self.tagInsets;
+    cell.layer.borderWidth = self.tagBorderWidth;
     [self setCell:cell selected:tagModel.selected];
     
     return cell;
@@ -290,10 +293,12 @@ static NSString * const kTagCellID = @"TagCellID";
         cell.backgroundColor = self.tagSelectedBackgroundColor;
         cell.tagLabel.font = self.tagSelectedFont;
         cell.tagLabel.textColor = self.tagSelectedTextColor;
+        cell.layer.borderColor = self.tagSelectedBorderColor.CGColor;
     }else {
         cell.backgroundColor = self.tagBackgroundColor;
         cell.tagLabel.font = self.tagFont;
         cell.tagLabel.textColor = self.tagTextColor;
+        cell.layer.borderColor = self.tagBorderColor.CGColor;
     }
 }
 
@@ -364,7 +369,7 @@ static NSString * const kTagCellID = @"TagCellID";
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     FMTagModel *tagModel = self.tagModels[indexPath.row];
     
-    CGFloat width = tagModel.contentSize.width + self.tagInsets.top + self.tagInsets.bottom;
+    CGFloat width = tagModel.contentSize.width + self.tagInsets.left + self.tagInsets.right;
     if (width < self.mininumTagWidth) {
         width = self.mininumTagWidth;
     }
@@ -413,6 +418,14 @@ static NSString * const kTagCellID = @"TagCellID";
     }
     
     return _tagSelectedFont;
+}
+
+- (UIColor *)tagSelectedBorderColor {
+    if (!_tagSelectedBorderColor) {
+        return _tagBorderColor;
+    }
+    
+    return _tagSelectedBorderColor;
 }
 
 - (NSUInteger)selectedIndex {

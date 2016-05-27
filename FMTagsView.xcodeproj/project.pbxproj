@@ -17,6 +17,7 @@
 		9310A43D1CF54624005DEAB5 /* FMTagsViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310A43C1CF54624005DEAB5 /* FMTagsViewTests.m */; };
 		9310A4481CF54624005DEAB5 /* FMTagsViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310A4471CF54624005DEAB5 /* FMTagsViewUITests.m */; };
 		9310A45B1CF54664005DEAB5 /* FMTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310A45A1CF54664005DEAB5 /* FMTagsView.m */; };
+		93A124791CF82AF4007070E1 /* FMHotSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A124781CF82AF4007070E1 /* FMHotSearchController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		9310A4491CF54624005DEAB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9310A4591CF54664005DEAB5 /* FMTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTagsView.h; sourceTree = "<group>"; };
 		9310A45A1CF54664005DEAB5 /* FMTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMTagsView.m; sourceTree = "<group>"; };
+		93A124771CF82AF4007070E1 /* FMHotSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMHotSearchController.h; sourceTree = "<group>"; };
+		93A124781CF82AF4007070E1 /* FMHotSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMHotSearchController.m; sourceTree = "<group>"; };
 		E6BCD241B4037CE051E1AE0E /* libPods-FMTagsView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FMTagsView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF42A82EF7E3060A7B12867 /* Pods-FMTagsView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMTagsView.release.xcconfig"; path = "Pods/Target Support Files/Pods-FMTagsView/Pods-FMTagsView.release.xcconfig"; sourceTree = "<group>"; };
 		FC597E7665A28DA90CDF017C /* Pods-FMTagsView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMTagsView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FMTagsView/Pods-FMTagsView.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +122,7 @@
 		9310A4211CF54624005DEAB5 /* FMTagsView */ = {
 			isa = PBXGroup;
 			children = (
+				93A124761CF82ADE007070E1 /* Controller */,
 				9310A4581CF54664005DEAB5 /* TagsView */,
 				9310A4251CF54624005DEAB5 /* AppDelegate.h */,
 				9310A4261CF54624005DEAB5 /* AppDelegate.m */,
@@ -166,6 +170,15 @@
 				9310A45A1CF54664005DEAB5 /* FMTagsView.m */,
 			);
 			path = TagsView;
+			sourceTree = "<group>";
+		};
+		93A124761CF82ADE007070E1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				93A124771CF82AF4007070E1 /* FMHotSearchController.h */,
+				93A124781CF82AF4007070E1 /* FMHotSearchController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		F482109D7DFF940655A93543 /* Pods */ = {
@@ -362,6 +375,7 @@
 				9310A42A1CF54624005DEAB5 /* ViewController.m in Sources */,
 				9310A4271CF54624005DEAB5 /* AppDelegate.m in Sources */,
 				9310A4241CF54624005DEAB5 /* main.m in Sources */,
+				93A124791CF82AF4007070E1 /* FMHotSearchController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
