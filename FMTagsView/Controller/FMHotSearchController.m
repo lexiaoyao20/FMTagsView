@@ -30,8 +30,8 @@
     _tagsView.tagBorderColor = [UIColor lightGrayColor];
     _tagsView.tagSelectedBorderColor = [UIColor lightGrayColor];
     _tagsView.tagBackgroundColor = [UIColor whiteColor];
-    _tagsView.minimumLineSpacing = 10;
-    _tagsView.minimumInteritemSpacing = 10;
+    _tagsView.lineSpacing = 10;
+    _tagsView.interitemSpacing = 10;
     _tagsView.tagFont = [UIFont systemFontOfSize:14];
     _tagsView.tagTextColor = [UIColor grayColor];
     _tagsView.tagSelectedBackgroundColor = _tagsView.tagBackgroundColor;

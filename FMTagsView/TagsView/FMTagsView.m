@@ -228,24 +228,32 @@ static NSString * const kTagCellID = @"TagCellID";
     _tagHeight = 28;
     _mininumTagWidth = 0;
     _maximumTagWidth = CGFLOAT_MAX;
-    _minimumLineSpacing = 10;
-    _minimumInteritemSpacing = 5;
+    _lineSpacing = 10;
+    _interitemSpacing = 5;
     
     _allowsSelection = YES;
     _allowsMultipleSelection = NO;
     
     [self addSubview:self.collectionView];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
     
-    _collectionView.frame = self.bounds;
+    UICollectionView *collectionView = self.collectionView;
+    collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSDictionary *views = NSDictionaryOfVariableBindings(collectionView);
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[collectionView]|"
+                                                                   options:NSLayoutFormatAlignAllTop
+                                                                   metrics:nil
+                                                                     views:views];
+    constraints = [constraints arrayByAddingObjectsFromArray:
+                   [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|"
+                                                           options:0
+                                                           metrics:nil
+                                                             views:views]];
+    [self addConstraints:constraints];
 }
 
 - (CGSize)intrinsicContentSize {
     CGSize contentSize = self.collectionView.collectionViewLayout.collectionViewContentSize;
-    return contentSize;
+    return CGSizeMake(UIViewNoIntrinsicMetric, contentSize.height);
 }
 
 - (void)setTagsArray:(NSArray<NSString *> *)tagsArray {
@@ -290,7 +298,7 @@ static NSString * const kTagCellID = @"TagCellID";
     [self invalidateIntrinsicContentSize];
 }
 
-- (void)addTag:(NSString *)tagName AtIndex:(NSUInteger)index {
+- (void)insertTag:(NSString *)tagName AtIndex:(NSUInteger)index {
     if (index >= self.tagsMutableArray.count) {
         return;
     }
@@ -438,11 +446,11 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return self.minimumInteritemSpacing;
+    return self.interitemSpacing;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return self.minimumLineSpacing;
+    return self.lineSpacing;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -456,7 +464,6 @@ static NSString * const kTagCellID = @"TagCellID";
         FMEqualSpaceFlowLayout *flowLayout = [[FMEqualSpaceFlowLayout alloc] init];
         flowLayout.delegate = self;
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
-        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _collectionView.backgroundColor = [UIColor clearColor];
         [_collectionView registerClass:[FMTagCell class] forCellWithReuseIdentifier:kTagCellID];
         _collectionView.dataSource = self;

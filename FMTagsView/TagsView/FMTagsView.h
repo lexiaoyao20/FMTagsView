@@ -17,8 +17,8 @@
 @property (nonatomic) NSArray<NSString *> *tagsArray;   //数据源
 @property (weak, nonatomic) id<FMTagsViewDelegate> delegate;
 
-@property (nonatomic) CGFloat minimumLineSpacing;       //行间距, 默认为10
-@property (nonatomic) CGFloat minimumInteritemSpacing; //元素之间的间距，默认为5
+@property (nonatomic) CGFloat lineSpacing;       //行间距, 默认为10
+@property (nonatomic) CGFloat interitemSpacing; //元素之间的间距，默认为5
 
 #pragma mark - ......::::::: 标签定制属性 :::::::......
 
