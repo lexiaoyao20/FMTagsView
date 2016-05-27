@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"FMTagsView Demo";
 //    _scrollView = [UIScrollView new];
 //    [self.view addSubview:_scrollView];
 //    

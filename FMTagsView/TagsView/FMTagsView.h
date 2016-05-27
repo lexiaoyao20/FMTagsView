@@ -49,6 +49,18 @@
 - (void)selectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
 - (void)deSelectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
 
+#pragma mark - ......::::::: Edit :::::::......
+
+//if not found, return NSNotFount
+- (NSUInteger)indexOfTag:(NSString *)tagName;
+
+- (void)addTag:(NSString *)tagName;
+- (void)insertTag:(NSString *)tagName AtIndex:(NSUInteger)index;
+
+- (void)removeTagWithName:(NSString *)tagName;
+- (void)removeTagAtIndex:(NSUInteger)index;
+- (void)removeAllTags;
+
 @end
 
 

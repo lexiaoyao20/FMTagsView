@@ -189,6 +189,7 @@ static NSString * const kTagCellID = @"TagCellID";
 @interface FMTagsView ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) NSMutableArray<NSString *> *tagsMutableArray;
 @property (strong, nonatomic) NSMutableArray<FMTagModel *> *tagModels;
 
 @end
@@ -243,11 +244,12 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (CGSize)intrinsicContentSize {
-    return self.collectionView.collectionViewLayout.collectionViewContentSize;
+    CGSize contentSize = self.collectionView.collectionViewLayout.collectionViewContentSize;
+    return contentSize;
 }
 
 - (void)setTagsArray:(NSArray<NSString *> *)tagsArray {
-    _tagsArray = tagsArray;
+    _tagsMutableArray = [tagsArray mutableCopy];
     [self.tagModels removeAllObjects];
     [tagsArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         FMTagModel *tagModel = [[FMTagModel alloc] initWithName:obj font:self.tagFont];
@@ -266,10 +268,65 @@ static NSString * const kTagCellID = @"TagCellID";
     [self.collectionView deselectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES];
 }
 
+#pragma mark - ......::::::: Edit :::::::......
+
+- (NSUInteger)indexOfTag:(NSString *)tagName {
+    __block NSUInteger index = NSNotFound;
+    [self.tagsMutableArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqualToString:tagName]) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    return index;
+}
+
+- (void)addTag:(NSString *)tagName {
+    [self.tagsMutableArray addObject:tagName];
+    FMTagModel *tagModel = [[FMTagModel alloc] initWithName:tagName font:self.tagFont];
+    [self.tagModels addObject:tagModel];
+    [self.collectionView reloadData];
+    [self invalidateIntrinsicContentSize];
+}
+
+- (void)addTag:(NSString *)tagName AtIndex:(NSUInteger)index {
+    if (index >= self.tagsMutableArray.count) {
+        return;
+    }
+    
+    [self.tagsMutableArray insertObject:tagName atIndex:index];
+    FMTagModel *tagModel = [[FMTagModel alloc] initWithName:tagName font:self.tagFont];
+    [self.tagModels insertObject:tagModel atIndex:index];
+    [self.collectionView reloadData];
+    [self invalidateIntrinsicContentSize];
+}
+
+- (void)removeTagWithName:(NSString *)tagName {
+    return [self removeTagAtIndex:[self indexOfTag:tagName]];
+}
+
+- (void)removeTagAtIndex:(NSUInteger)index {
+    if (index >= self.tagsMutableArray.count || index == NSNotFound) {
+        return ;
+    }
+    
+    [self.tagsMutableArray removeObjectAtIndex:index];
+    [self.tagModels removeObjectAtIndex:index];
+    [self.collectionView reloadData];
+    [self invalidateIntrinsicContentSize];
+}
+
+- (void)removeAllTags {
+    [self.tagsMutableArray removeAllObjects];
+    [self.tagModels removeAllObjects];
+    [self.collectionView reloadData];
+}
+
 #pragma mark - ......::::::: CollectionView DataSource :::::::......
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _tagsArray.count;
+    return self.tagModels.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -437,6 +494,10 @@ static NSString * const kTagCellID = @"TagCellID";
         _tagModels = [[NSMutableArray alloc] init];
     }
     return _tagModels;
+}
+
+- (NSArray<NSString *> *)tagsArray {
+    return [self.tagsMutableArray copy];
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "FMHotSearchController.h"
 #import "FMTagsView.h"
 
-@interface FMHotSearchController ()
+@interface FMHotSearchController ()<FMTagsViewDelegate>
 
 @property (weak, nonatomic) IBOutlet FMTagsView *tagsView;
 
