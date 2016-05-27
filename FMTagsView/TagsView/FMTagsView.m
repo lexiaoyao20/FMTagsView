@@ -181,7 +181,7 @@ static NSString * const kTagCellID = @"TagCellID";
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
-    return NO;
+    return YES;
 }
 
 @end
