@@ -7,7 +7,6 @@
 //
 
 #import "FMTagsView.h"
-#import <Masonry/Masonry.h>
 
 static NSString * const kTagCellID = @"TagCellID";
 
@@ -64,13 +63,19 @@ static NSString * const kTagCellID = @"TagCellID";
         _tagLabel.textAlignment = NSTextAlignmentCenter;
         _tagLabel.userInteractionEnabled = NO;
         [self.contentView addSubview:_tagLabel];
-        
-        [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make){
-            make.center.equalTo(self.contentView);
-        }];
     }
     
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGRect bounds = self.contentView.bounds;
+    CGFloat width = bounds.size.width - self.contentInsets.left - self.contentInsets.right;
+    CGRect frame = CGRectMake(0, 0, width, [self.tagModel contentSize].height);
+    self.tagLabel.frame = frame;
+    self.tagLabel.center = self.contentView.center;
 }
 
 @end
