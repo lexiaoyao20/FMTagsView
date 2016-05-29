@@ -5,6 +5,7 @@
 1. 示例一，仿天猫热门搜索标签的效果：
 ![Hot Search.gif](https://github.com/lexiaoyao20/FMTagsView/blob/master/Screenshots/aaaa.gif)
 
+
 2. 实例二，动态添加和删除标签
 ![动态添加和删除.gif](https://github.com/lexiaoyao20/FMTagsView/blob/master/Screenshots/bbb.gif)
 
