@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet FMTagsView *tagsView;
 @property (weak, nonatomic) IBOutlet UITextField *tagNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *indexTextField;
+
 @property (strong, nonatomic) NSArray *dataArray;
 
 @end
@@ -38,6 +40,13 @@
     NSString *tagName = self.tagNameTextField.text;
     if (tagName.length > 0) {
         [self.tagsView addTag:tagName];
+    }
+}
+
+- (IBAction)remove:(id)sender {
+    if (self.indexTextField.text.length > 0) {
+        NSInteger index = [self.indexTextField.text integerValue];
+        [self.tagsView removeTagAtIndex:index];
     }
 }
 

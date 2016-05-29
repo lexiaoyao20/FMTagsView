@@ -86,6 +86,7 @@ static NSString * const kTagCellID = @"TagCellID";
 
 @property (weak, nonatomic) id<UICollectionViewDelegateFlowLayout> delegate;
 @property (nonatomic, strong) NSMutableArray *itemAttributes;
+@property (assign,nonatomic) CGFloat contentHeight;
 
 @end
 
@@ -132,6 +133,7 @@ static NSString * const kTagCellID = @"TagCellID";
 {
     [super prepareLayout];
     
+    _contentHeight = 0;
     NSInteger itemCount = [[self collectionView] numberOfItemsInSection:0];
     self.itemAttributes = [NSMutableArray arrayWithCapacity:itemCount];
     
@@ -164,7 +166,11 @@ static NSString * const kTagCellID = @"TagCellID";
         
         layoutAttributes.frame = CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height);
         [_itemAttributes addObject:layoutAttributes];
+        
+        _contentHeight = MAX(_contentHeight, CGRectGetMaxY(layoutAttributes.frame));
     }
+    
+    _contentHeight = MAX(_contentHeight + sectionInset.bottom, self.collectionView.frame.size.height);
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -179,8 +185,18 @@ static NSString * const kTagCellID = @"TagCellID";
     }]];
 }
 
+- (CGSize)collectionViewContentSize {
+    CGSize contentSize  = CGSizeMake(self.collectionView.frame.size.width, self.contentHeight);
+    return contentSize;
+}
+
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
+    CGRect oldBounds = self.collectionView.bounds;
+
+    if (CGRectGetHeight(newBounds) != CGRectGetHeight(oldBounds)) {
+        return YES;
+    }
     return YES;
 }
 

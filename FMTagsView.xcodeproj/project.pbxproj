@@ -208,6 +208,7 @@
 				9310A41D1CF54624005DEAB5 /* Resources */,
 				53C5E79ABF9864EA18ECB8C1 /* 📦 Embed Pods Frameworks */,
 				A71F4001D934CC9F5CE815F1 /* 📦 Copy Pods Resources */,
+				B051527FB8FFF7778F7B1334 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -265,6 +266,7 @@
 				TargetAttributes = {
 					9310A41E1CF54624005DEAB5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = R65VV42CM2;
 					};
 					9310A4371CF54624005DEAB5 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -367,6 +369,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FMTagsView/Pods-FMTagsView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B051527FB8FFF7778F7B1334 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FMTagsView/Pods-FMTagsView-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -523,10 +540,14 @@
 			baseConfigurationReference = FC597E7665A28DA90CDF017C /* Pods-FMTagsView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FMTagsView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Followme.FMTagsView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -535,10 +556,14 @@
 			baseConfigurationReference = ECF42A82EF7E3060A7B12867 /* Pods-FMTagsView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FMTagsView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Followme.FMTagsView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
