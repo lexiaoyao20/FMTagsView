@@ -3,8 +3,7 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)]
 [![CocoaPods](http://img.shields.io/cocoapods/v/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/p/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
-[![Support](https://img.shields.io/badge/support-iOS%206%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)&nbsp;
-[![Build Status](https://travis-ci.org/ibireme/FMTagsView.svg?branch=master)](https://travis-ci.org/ibireme/FMTagsView)
+[![Build Status](https://travis-ci.org/ibireme/FMTagsView.svg?branch=master)](https://travis-ci.org/Subo/FMTagsView)
 
 一个基于UICollectionView的标签展示控件 
 
