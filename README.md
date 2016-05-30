@@ -23,6 +23,12 @@
 * 支持单选和多选模式
 
 ## How to Use
+
+首先，添加 FMTagsView.h 和 FMTagsView.m 这两个文件到你项目中，或者使用pod来安装。
+```
+pod 'FMTagsView'
+```
+
 控件初始化示例：
 ```
   FMTagsView *tagsView = [[FMTagsView alloc] initWithFrame:CGRectMake(10, 120, 300, 150)];
