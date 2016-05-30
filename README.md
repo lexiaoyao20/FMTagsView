@@ -1,4 +1,10 @@
 # FMTagsView
+
+[![CI Status](http://img.shields.io/travis/Subo/FMTagsView.svg?style=flat)](https://travis-ci.org/Subo/FMTagsView)
+[![Version](https://img.shields.io/cocoapods/v/FMTagsView.svg?style=flat)](http://cocoapods.org/pods/FMTagsView)
+[![License](https://img.shields.io/cocoapods/l/FMTagsView.svg?style=flat)](http://cocoapods.org/pods/FMTagsView)
+[![Platform](https://img.shields.io/cocoapods/p/FMTagsView.svg?style=flat)](http://cocoapods.org/pods/FMTagsView)
+
 一个基于UICollectionView的标签展示控件 
 
 ## Screenshots
