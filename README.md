@@ -5,6 +5,11 @@
 [![CocoaPods](http://img.shields.io/cocoapods/p/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
 [![Build Status](https://travis-ci.org/ibireme/FMTagsView.svg?branch=master)](https://travis-ci.org/Subo/FMTagsView)
 
+[![CI Status](http://img.shields.io/travis/Subo/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
+[![Version](https://img.shields.io/cocoapods/v/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
+[![License](https://img.shields.io/cocoapods/l/FMTagsView.svg?style=flat)](https://github.com/lexiaoyao20/FMTagsView/blob/master/LICENSE)&nbsp;
+[![Platform](https://img.shields.io/cocoapods/p/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
+
 一个基于UICollectionView的标签展示控件 
 
 ## Screenshots
