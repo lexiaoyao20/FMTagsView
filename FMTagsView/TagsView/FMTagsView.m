@@ -185,10 +185,10 @@ static NSString * const kTagCellID = @"TagCellID";
     }]];
 }
 
-- (CGSize)collectionViewContentSize {
-    CGSize contentSize  = CGSizeMake(self.collectionView.frame.size.width, self.contentHeight);
-    return contentSize;
-}
+//- (CGSize)collectionViewContentSize {
+//    CGSize contentSize  = CGSizeMake(self.collectionView.frame.size.width, self.contentHeight);
+//    return contentSize;
+//}
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
@@ -510,6 +510,33 @@ static NSString * const kTagCellID = @"TagCellID";
 
 - (NSUInteger)selectedIndex {
     return self.collectionView.indexPathsForSelectedItems.firstObject.row;
+}
+
+- (NSArray<NSString *> *)selecedTags {
+    if (!self.allowsMultipleSelection) {
+        return nil;
+    }
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+        [result addObject:self.tagsMutableArray[indexPath.row]];
+    }
+    
+    return result.copy;
+}
+
+- (NSArray<NSNumber *> *)selectedIndexes {
+    if (!self.allowsMultipleSelection) {
+        return nil;
+    }
+    
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+        [result addObject:@(indexPath.row)];
+    }
+    
+    return result.copy;
 }
 
 - (NSMutableArray<FMTagModel *> *)tagModels {

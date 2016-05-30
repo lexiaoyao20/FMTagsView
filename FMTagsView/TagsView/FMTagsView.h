@@ -45,6 +45,7 @@
 
 @property (nonatomic, readonly) NSUInteger selectedIndex;   //选中索引
 @property (nonatomic, readonly) NSArray<NSString *> *selecedTags;     //多选状态下，选中的Tags
+@property (nonatomic, readonly) NSArray<NSNumber *> *selectedIndexes; //多选状态下，选中的索引
 
 - (void)selectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
 - (void)deSelectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
