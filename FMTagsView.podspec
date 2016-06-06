@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = 'FMTagsView'
   s.summary      = '一个基于UICollectionView的标签展示控件 .'
-  s.version      = '0.1.1'
+  s.version      = '0.1.2'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.authors      = { 'Subo' => '455295813@qq.com' }
   s.social_media_url = 'http://bobdev.cn/'
