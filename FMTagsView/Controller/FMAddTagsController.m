@@ -29,6 +29,7 @@
                        @"面包", @"洗洁精", @"咖啡速溶",
                        @"云南白药牙膏", @"方便面", @"空调", @"AA"];
     _tagsView.tagsArray = self.dataArray;
+    _tagsView.contentInsets = UIEdgeInsetsMake(10, 10, 50, 10);
 }
 
 - (void)didReceiveMemoryWarning {

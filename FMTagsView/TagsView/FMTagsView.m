@@ -170,7 +170,7 @@ static NSString * const kTagCellID = @"TagCellID";
         _contentHeight = MAX(_contentHeight, CGRectGetMaxY(layoutAttributes.frame));
     }
     
-    _contentHeight = MAX(_contentHeight + sectionInset.bottom, self.collectionView.frame.size.height);
+    _contentHeight += sectionInset.bottom;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -185,19 +185,21 @@ static NSString * const kTagCellID = @"TagCellID";
     }]];
 }
 
-//- (CGSize)collectionViewContentSize {
-//    CGSize contentSize  = CGSizeMake(self.collectionView.frame.size.width, self.contentHeight);
-//    return contentSize;
-//}
+- (CGSize)collectionViewContentSize {
+    //重新计算布局
+    [self prepareLayout];
+
+    CGSize contentSize  = CGSizeMake(self.collectionView.frame.size.width, self.contentHeight);
+    return contentSize;
+}
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     CGRect oldBounds = self.collectionView.bounds;
-
-    if (CGRectGetHeight(newBounds) != CGRectGetHeight(oldBounds)) {
+    if (!CGSizeEqualToSize(oldBounds.size, newBounds.size)) {
         return YES;
     }
-    return YES;
+    return NO;
 }
 
 @end
