@@ -251,6 +251,7 @@ static NSString * const kTagCellID = @"TagCellID";
     
     _allowsSelection = YES;
     _allowsMultipleSelection = NO;
+    _allowEmptySelection = YES;
     
     [self addSubview:self.collectionView];
     
@@ -422,6 +423,11 @@ static NSString * const kTagCellID = @"TagCellID";
     
     //修复单选情况下，无法取消选中的问题
     if (tagModel.selected) {
+        //不允许空选，直接返回
+        if (!self.allowEmptySelection && self.collectionView.indexPathsForSelectedItems.count == 1) {
+            return;
+        }
+        
         cell.selected = NO;
         collectionView.allowsMultipleSelection = YES;
         [collectionView deselectItemAtIndexPath:indexPath animated:NO];

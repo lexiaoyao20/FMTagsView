@@ -42,6 +42,7 @@
 
 @property (nonatomic) BOOL allowsSelection;             //是否允许选中, default is YES
 @property (nonatomic) BOOL allowsMultipleSelection;     //是否允许多选, default is NO
+@property (nonatomic) BOOL allowEmptySelection;         //是否允许空选, default is YES
 
 @property (nonatomic, readonly) NSUInteger selectedIndex;   //选中索引
 @property (nonatomic, readonly) NSArray<NSString *> *selecedTags;     //多选状态下，选中的Tags
