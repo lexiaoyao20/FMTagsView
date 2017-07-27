@@ -142,6 +142,7 @@ static NSString * const kTagCellID = @"TagCellID";
     CGFloat xOffset = sectionInset.left;
     CGFloat yOffset = sectionInset.top;
     CGFloat xNextOffset = sectionInset.left;
+    CGRect colloctionViewBounds = [self collectionView].bounds;
     
     for (NSInteger idx = 0; idx < itemCount; idx++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
@@ -149,7 +150,7 @@ static NSString * const kTagCellID = @"TagCellID";
 
         xNextOffset += (minimumInteritemSpacing + itemSize.width);
         
-        if (xNextOffset - minimumInteritemSpacing > [self collectionView].bounds.size.width - sectionInset.right) {
+        if (xNextOffset - minimumInteritemSpacing > colloctionViewBounds.size.width - sectionInset.right) {
             xOffset = sectionInset.left;
             xNextOffset = (sectionInset.left + minimumInteritemSpacing + itemSize.width);
             yOffset += (itemSize.height + minimumLineSpacing);
