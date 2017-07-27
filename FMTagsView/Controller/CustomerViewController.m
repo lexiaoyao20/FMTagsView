@@ -45,7 +45,7 @@
 - (FMTagsView *)createTagsViewWithDataSrouse:(NSArray *)dataSource borderColor:(UIColor *)borderColor {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat padding = 15;
-    //must set the true width
+    //must set the correct width
     FMTagsView *tagsView = [[FMTagsView alloc] initWithFrame:CGRectMake(0, 0, screenWidth - padding * 2, 180)];
     tagsView.backgroundColor = [UIColor whiteColor];
     tagsView.delegate = self;
