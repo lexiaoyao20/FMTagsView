@@ -49,11 +49,9 @@ static NSString * const kTagCellID = @"TagCellID";
 
 @end
 
-@interface FMTagCell : UICollectionViewCell
+@interface FMTagCell ()
 
-@property (strong, nonatomic) UILabel *tagLabel;
 @property (nonatomic) FMTagModel *tagModel;
-@property (nonatomic) UIEdgeInsets contentInsets;
 
 @end
 
@@ -234,7 +232,7 @@ static NSString * const kTagCellID = @"TagCellID";
 - (void)commonInit {
     self.backgroundColor = [UIColor whiteColor];
     _contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    _tagInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    _tagInsets = UIEdgeInsetsMake(5, 10, 5, 10);
     _tagBorderWidth = 0;
     _tagBackgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.94 alpha:1.0];
     _tagSelectedBackgroundColor = [UIColor colorWithRed:1.0 green:0.38 blue:0.0 alpha:1.0];
@@ -252,6 +250,7 @@ static NSString * const kTagCellID = @"TagCellID";
     _allowsSelection = YES;
     _allowsMultipleSelection = NO;
     _allowEmptySelection = YES;
+    _maximumNumberOfSelection = NSIntegerMax;
     
     [self addSubview:self.collectionView];
     
@@ -286,13 +285,39 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (void)selectTagAtIndex:(NSUInteger)index animate:(BOOL)animate {
+    if (index >= self.tagModels.count || !self.allowsSelection) {
+        return;
+    }
+    
+    if (self.allowsSelection && !self.allowsMultipleSelection) {
+        [self deSelectAll];
+    }
+    
     [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                                       animated:animate
                                 scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
 }
 
 - (void)deSelectTagAtIndex:(NSUInteger)index animate:(BOOL)animate {
+    if (index >= self.tagModels.count) {
+        return;
+    }
+    FMTagModel *tagModel = self.tagModels[index];
+    tagModel.selected = NO;
     [self.collectionView deselectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES];
+    if ([self.delegate respondsToSelector:@selector(tagsView:didDeSelectTagAtIndex:)]) {
+        [self.delegate tagsView:self didDeSelectTagAtIndex:index];
+    }
+}
+
+- (void)deSelectAll {
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+        FMTagModel *tagModel = self.tagModels[indexPath.row];
+        tagModel.selected = NO;
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    }
+    [self.collectionView reloadData];
 }
 
 #pragma mark - ......::::::: Edit :::::::......
@@ -388,6 +413,13 @@ static NSString * const kTagCellID = @"TagCellID";
 
 #pragma mark - ......::::::: UICollectionViewDelegate :::::::......
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    FMTagCell *tagCell = (FMTagCell *)cell;
+    if ([self.delegate respondsToSelector:@selector(tagsView:willDispayCell:atIndex:)]) {
+        [self.delegate tagsView:self willDispayCell:tagCell atIndex:indexPath.row];
+    }
+}
+
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -416,6 +448,14 @@ static NSString * const kTagCellID = @"TagCellID";
     FMTagModel *tagModel = self.tagModels[indexPath.row];
     FMTagCell *cell = (FMTagCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (self.allowsMultipleSelection) {
+        
+        if (self.collectionView.indexPathsForSelectedItems.count > self.maximumNumberOfSelection) {
+            if ([self.delegate respondsToSelector:@selector(tagsViewDidBeyondMaximumNumberOfSelection:)]) {
+                [self.delegate tagsViewDidBeyondMaximumNumberOfSelection:self];
+            }
+            return;
+        }
+        
         tagModel.selected = YES;
         [self setCell:cell selected:YES];
         return;
@@ -521,9 +561,9 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (NSArray<NSString *> *)selecedTags {
-    if (!self.allowsMultipleSelection) {
-        return nil;
-    }
+//    if (!self.allowsMultipleSelection) {
+//        return nil;
+//    }
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
@@ -534,9 +574,9 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (NSArray<NSNumber *> *)selectedIndexes {
-    if (!self.allowsMultipleSelection) {
-        return nil;
-    }
+//    if (!self.allowsMultipleSelection) {
+//        return nil;
+//    }
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     

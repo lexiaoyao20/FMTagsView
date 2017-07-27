@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CustomerViewController.h"
 
 @interface ViewController ()
 
@@ -22,6 +23,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)showCustomerController:(id)sender {
+    CustomerViewController *customerVC = [[CustomerViewController alloc] init];
+    [self.navigationController pushViewController:customerVC animated:YES];
 }
 
 @end

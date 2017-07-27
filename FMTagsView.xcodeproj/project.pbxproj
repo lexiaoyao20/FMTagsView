@@ -17,6 +17,7 @@
 		9310A43D1CF54624005DEAB5 /* FMTagsViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310A43C1CF54624005DEAB5 /* FMTagsViewTests.m */; };
 		9310A4481CF54624005DEAB5 /* FMTagsViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310A4471CF54624005DEAB5 /* FMTagsViewUITests.m */; };
 		9310A45B1CF54664005DEAB5 /* FMTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310A45A1CF54664005DEAB5 /* FMTagsView.m */; };
+		934418411F29771E00C99C79 /* CustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934418401F29771E00C99C79 /* CustomerViewController.m */; };
 		93A124791CF82AF4007070E1 /* FMHotSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A124781CF82AF4007070E1 /* FMHotSearchController.m */; };
 		93A1247C1CF8393D007070E1 /* FMAddTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A1247B1CF8393D007070E1 /* FMAddTagsController.m */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,8 @@
 		9310A4491CF54624005DEAB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9310A4591CF54664005DEAB5 /* FMTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTagsView.h; sourceTree = "<group>"; };
 		9310A45A1CF54664005DEAB5 /* FMTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMTagsView.m; sourceTree = "<group>"; };
+		9344183F1F29771E00C99C79 /* CustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerViewController.h; sourceTree = "<group>"; };
+		934418401F29771E00C99C79 /* CustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerViewController.m; sourceTree = "<group>"; };
 		93A124771CF82AF4007070E1 /* FMHotSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMHotSearchController.h; sourceTree = "<group>"; };
 		93A124781CF82AF4007070E1 /* FMHotSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMHotSearchController.m; sourceTree = "<group>"; };
 		93A1247A1CF8393D007070E1 /* FMAddTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMAddTagsController.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				93A124781CF82AF4007070E1 /* FMHotSearchController.m */,
 				93A1247A1CF8393D007070E1 /* FMAddTagsController.h */,
 				93A1247B1CF8393D007070E1 /* FMAddTagsController.m */,
+				9344183F1F29771E00C99C79 /* CustomerViewController.h */,
+				934418401F29771E00C99C79 /* CustomerViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -202,12 +207,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9310A44C1CF54624005DEAB5 /* Build configuration list for PBXNativeTarget "FMTagsView" */;
 			buildPhases = (
-				12F34B32172934F90F9306D3 /* 📦 Check Pods Manifest.lock */,
+				12F34B32172934F90F9306D3 /* [CP] Check Pods Manifest.lock */,
 				9310A41B1CF54624005DEAB5 /* Sources */,
 				9310A41C1CF54624005DEAB5 /* Frameworks */,
 				9310A41D1CF54624005DEAB5 /* Resources */,
-				9E1FD19726DD62B2AE2540DE /* 📦 Embed Pods Frameworks */,
-				9EB66BBF89DAD7B265F6B1C6 /* 📦 Copy Pods Resources */,
+				9E1FD19726DD62B2AE2540DE /* [CP] Embed Pods Frameworks */,
+				9EB66BBF89DAD7B265F6B1C6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -325,29 +330,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		12F34B32172934F90F9306D3 /* 📦 Check Pods Manifest.lock */ = {
+		12F34B32172934F90F9306D3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		9E1FD19726DD62B2AE2540DE /* 📦 Embed Pods Frameworks */ = {
+		9E1FD19726DD62B2AE2540DE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,14 +360,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FMTagsView/Pods-FMTagsView-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9EB66BBF89DAD7B265F6B1C6 /* 📦 Copy Pods Resources */ = {
+		9EB66BBF89DAD7B265F6B1C6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				934418411F29771E00C99C79 /* CustomerViewController.m in Sources */,
 				9310A45B1CF54664005DEAB5 /* FMTagsView.m in Sources */,
 				93A1247C1CF8393D007070E1 /* FMAddTagsController.m in Sources */,
 				9310A42A1CF54624005DEAB5 /* ViewController.m in Sources */,
