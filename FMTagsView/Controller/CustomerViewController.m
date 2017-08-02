@@ -157,8 +157,36 @@
 }
 
 #pragma mark - ......::::::: FMTagsViewDelegate :::::::......
-- (void)tagsView:(FMTagsView *)tagsView willDispayCell:(FMTagCell *)tagCell atIndex:(NSUInteger)index {
+
+- (void)changeTagCell:(FMTagCell *)tagCell atIndex:(NSUInteger)index {
+    /*
+     you can also use a color Array，like so.
+     NSArray<UIColor *> *colorArray ....
+     UIColor *currentColor = colorArray[index];
+     tagCell.backgroundColor = currentColor;
+     */
     
+    if (index % 2 == 0) {
+        tagCell.backgroundColor = [UIColor orangeColor];
+    }else {
+        tagCell.backgroundColor = [UIColor blueColor];
+    }
+}
+
+- (void)tagsView:(FMTagsView *)tagsView willDispayCell:(FMTagCell *)tagCell atIndex:(NSUInteger)index {
+    [self changeTagCell:tagCell atIndex:index];
+}
+
+- (void)tagsView:(FMTagsView *)tagsView didSelectTagAtIndex:(NSUInteger)index {
+    //customer apperance while selected tag
+}
+
+- (void)tagsView:(FMTagsView *)tagsView didDeSelectTagAtIndex:(NSUInteger)index {
+    //customer apperance while unselect tag
+    FMTagCell *cell = [tagsView cellForItemAtIndex:index];
+    if (cell) {
+        [self changeTagCell:cell atIndex:index];
+    }
 }
 
 @end

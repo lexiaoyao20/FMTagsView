@@ -321,6 +321,11 @@ static NSString * const kTagCellID = @"TagCellID";
     [self.collectionView reloadData];
 }
 
+- (FMTagCell *)cellForItemAtIndex:(NSInteger)index {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    return [self.collectionView cellForItemAtIndexPath:indexPath];
+}
+
 #pragma mark - ......::::::: Edit :::::::......
 
 - (NSUInteger)indexOfTag:(NSString *)tagName {
@@ -442,10 +447,6 @@ static NSString * const kTagCellID = @"TagCellID";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([self.delegate respondsToSelector:@selector(tagsView:didSelectTagAtIndex:)]) {
-        [self.delegate tagsView:self didSelectTagAtIndex:indexPath.row];
-    }
-    
     FMTagModel *tagModel = self.tagModels[indexPath.row];
     FMTagCell *cell = (FMTagCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (self.allowsMultipleSelection) {
@@ -479,17 +480,22 @@ static NSString * const kTagCellID = @"TagCellID";
     
     tagModel.selected = YES;
     [self setCell:cell selected:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(tagsView:didSelectTagAtIndex:)]) {
+        [self.delegate tagsView:self didSelectTagAtIndex:indexPath.row];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.delegate respondsToSelector:@selector(tagsView:didDeSelectTagAtIndex:)]) {
-        [self.delegate tagsView:self didDeSelectTagAtIndex:indexPath.row];
-    }
     
     FMTagModel *tagModel = self.tagModels[indexPath.row];
     FMTagCell *cell = (FMTagCell *)[collectionView cellForItemAtIndexPath:indexPath];
     tagModel.selected = NO;
     [self setCell:cell selected:NO];
+    
+    if ([self.delegate respondsToSelector:@selector(tagsView:didDeSelectTagAtIndex:)]) {
+        [self.delegate tagsView:self didDeSelectTagAtIndex:indexPath.row];
+    }
 }
 
 #pragma mark - ......::::::: UICollectionViewDelegateFlowLayout :::::::......

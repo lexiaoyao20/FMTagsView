@@ -64,6 +64,8 @@
 - (void)deSelectTagAtIndex:(NSUInteger)index animate:(BOOL)animate;
 - (void)deSelectAll;
 
+- (FMTagCell *)cellForItemAtIndex:(NSInteger)index;
+
 #pragma mark - ......::::::: Edit :::::::......
 
 //if not found, return NSNotFount
