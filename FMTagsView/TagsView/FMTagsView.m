@@ -283,6 +283,7 @@ static NSString * const kTagCellID = @"TagCellID";
         [self.tagModels addObject:tagModel];
     }];
     [self.collectionView reloadData];
+    [self invalidateIntrinsicContentSize];
 }
 
 - (void)selectTagAtIndex:(NSUInteger)index animate:(BOOL)animate {
@@ -323,7 +324,7 @@ static NSString * const kTagCellID = @"TagCellID";
 
 - (FMTagCell *)cellForItemAtIndex:(NSInteger)index {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    return [self.collectionView cellForItemAtIndexPath:indexPath];
+    return (FMTagCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
 }
 
 #pragma mark - ......::::::: Edit :::::::......

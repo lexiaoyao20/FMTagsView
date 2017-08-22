@@ -35,11 +35,51 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self prepareUI];
     [self setConstraints];
+    [self setNavigationBar];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setNavigationBar {
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"Change Data"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(changeDataSource)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)changeDataSource {
+    NSArray *dataArray = @[@"Alta Baronia", @"Alto Tirso", @"Limbara", @"Tirso", @"Gerrei",
+                           @"Capoterra", @"Gutturu Mannu", @"Gennargentu", @"Ogliastra"];
+
+    NSInteger randomCount = (NSInteger)arc4random_uniform((u_int32_t)dataArray.count);
+    NSMutableArray *dataArray1 = [NSMutableArray new];
+    for(int i = 0; i <= randomCount; i++) {
+        [dataArray1 addObject:dataArray[i]];
+    }
+    self.tagsView1.tagsArray = dataArray1;
+    
+    randomCount = (NSInteger)arc4random_uniform((u_int32_t)dataArray.count);
+    NSMutableArray *dataArray2 = [NSMutableArray new];
+    for(int i = 0; i <= randomCount; i++) {
+        [dataArray2 addObject:dataArray[i]];
+    }
+    self.tagsView2.tagsArray = dataArray2;
+    
+    randomCount = (NSInteger)arc4random_uniform((u_int32_t)dataArray.count);
+    NSMutableArray *dataArray3 = [NSMutableArray new];
+    for(int i = 0; i <= randomCount; i++) {
+        [dataArray3 addObject:dataArray[i]];
+    }
+    self.tagsView3.tagsArray = dataArray3;
+    
+    //update constraints
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (FMTagsView *)createTagsViewWithDataSrouse:(NSArray *)dataSource borderColor:(UIColor *)borderColor {
