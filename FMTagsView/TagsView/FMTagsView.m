@@ -305,12 +305,7 @@ static NSString * const kTagCellID = @"TagCellID";
     if (index >= self.tagModels.count) {
         return;
     }
-    FMTagModel *tagModel = self.tagModels[index];
-    tagModel.selected = NO;
-    [self.collectionView deselectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES];
-    if ([self.delegate respondsToSelector:@selector(tagsView:didDeSelectTagAtIndex:)]) {
-        [self.delegate tagsView:self didDeSelectTagAtIndex:index];
-    }
+    [self collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
 }
 
 - (void)deSelectAll {
@@ -394,10 +389,10 @@ static NSString * const kTagCellID = @"TagCellID";
     FMTagModel *tagModel = self.tagModels[indexPath.row];
     cell.tagModel = tagModel;
     cell.tagLabel.text = tagModel.name;
-    cell.layer.cornerRadius = self.tagcornerRadius;
-    cell.layer.masksToBounds = self.tagcornerRadius > 0;
     cell.contentInsets = self.tagInsets;
+    cell.layer.cornerRadius = self.tagcornerRadius;
     cell.layer.borderWidth = self.tagBorderWidth;
+    cell.layer.masksToBounds = self.tagcornerRadius > 0;
     [self setCell:cell selected:tagModel.selected];
     
     return cell;
@@ -416,6 +411,7 @@ static NSString * const kTagCellID = @"TagCellID";
         cell.tagLabel.textColor = self.tagTextColor;
         cell.layer.borderColor = self.tagBorderColor.CGColor;
     }
+    [cell setSelected:selected];
 }
 
 #pragma mark - ......::::::: UICollectionViewDelegate :::::::......
@@ -453,6 +449,9 @@ static NSString * const kTagCellID = @"TagCellID";
     if (self.allowsMultipleSelection) {
         
         if (self.collectionView.indexPathsForSelectedItems.count > self.maximumNumberOfSelection) {
+            tagModel.selected = NO;
+            [self setCell:cell selected:NO];
+            [collectionView reloadItemsAtIndexPaths:@[indexPath]];
             if ([self.delegate respondsToSelector:@selector(tagsViewDidBeyondMaximumNumberOfSelection:)]) {
                 [self.delegate tagsViewDidBeyondMaximumNumberOfSelection:self];
             }
