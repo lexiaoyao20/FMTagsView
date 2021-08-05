@@ -1,9 +1,9 @@
 # FMTagsView
 
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/lexiaoyao20/FMTagsView/LICENSE)&nbsp;
-[![Version](https://img.shields.io/cocoapods/v/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
-[![Platform](https://img.shields.io/cocoapods/p/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
-[![CI Status](http://img.shields.io/travis/Subo/FMTagsView.svg?style=flat)](http://cocoapods.org/?q= FMTagsView)&nbsp;
+[![LICENSE](https://img.shields.io/cocoapods/l/FMTagsView)](https://github.com/lexiaoyao20/FMTagsView/blob/master/LICENSE)
+[![Version](https://img.shields.io/cocoapods/v/FMTagsView.svg)](https://img.shields.io/cocoapods/v/FMTagsView.svg)
+[![CocoaPods](https://img.shields.io/badge/platform-iOS7.0+-yellowgreen)](https://cocoapods.org/pods/FMTagsView)
+
 
 一个基于UICollectionView的标签展示控件 
 
