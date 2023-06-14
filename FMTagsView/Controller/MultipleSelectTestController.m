@@ -54,4 +54,12 @@
     NSLog(@"tagsViewDidBeyondMaximumNumberOfSelection:");
 }
 
+- (void)tagsView:(FMTagsView *)tagsView didSelectTagAtIndex:(NSUInteger)index {
+    NSLog(@"didSelectTagAtIndex: %ld", index);
+}
+
+- (void)tagsView:(FMTagsView *)tagsView didDeSelectTagAtIndex:(NSUInteger)index {
+    NSLog(@"didDeSelectTagAtIndex: %ld", index);
+}
+
 @end

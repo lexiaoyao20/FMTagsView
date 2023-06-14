@@ -14,7 +14,7 @@ static NSString * const kTagCellID = @"TagCellID";
 
 @property (copy, nonnull) NSString *name;
 @property (nonatomic) BOOL selected;
-//用于计算文字大小
+// 用于计算文字大小
 @property (strong, nonatomic) UIFont *font;
 
 @property (nonatomic, readonly) CGSize contentSize;
@@ -436,7 +436,7 @@ static NSString * const kTagCellID = @"TagCellID";
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.delegate respondsToSelector:@selector(tagsView:didDeSelectTagAtIndex:)]) {
+    if ([self.delegate respondsToSelector:@selector(tagsView:shouldDeselectItemAtIndex:)]) {
         return [self.delegate tagsView:self shouldDeselectItemAtIndex:indexPath.row];
     }
     return YES;
@@ -460,6 +460,7 @@ static NSString * const kTagCellID = @"TagCellID";
         
         tagModel.selected = YES;
         [self setCell:cell selected:YES];
+        [self notifyDidSelectTagAtIndex:indexPath.item];
         return;
     }
     
@@ -480,10 +481,7 @@ static NSString * const kTagCellID = @"TagCellID";
     
     tagModel.selected = YES;
     [self setCell:cell selected:YES];
-    
-    if ([self.delegate respondsToSelector:@selector(tagsView:didSelectTagAtIndex:)]) {
-        [self.delegate tagsView:self didSelectTagAtIndex:indexPath.row];
-    }
+    [self notifyDidSelectTagAtIndex:indexPath.item];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -494,7 +492,7 @@ static NSString * const kTagCellID = @"TagCellID";
     [self setCell:cell selected:NO];
     
     if ([self.delegate respondsToSelector:@selector(tagsView:didDeSelectTagAtIndex:)]) {
-        [self.delegate tagsView:self didDeSelectTagAtIndex:indexPath.row];
+        [self.delegate tagsView:self didDeSelectTagAtIndex:indexPath.item];
     }
 }
 
@@ -526,6 +524,14 @@ static NSString * const kTagCellID = @"TagCellID";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return self.contentInsets;
+}
+
+#pragma mark - ......::::::: Private Methods :::::::......
+
+- (void)notifyDidSelectTagAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(tagsView:didSelectTagAtIndex:)]) {
+        [self.delegate tagsView:self didSelectTagAtIndex:index];
+    }
 }
 
 #pragma mark - ......::::::: Getter and Setter :::::::......
